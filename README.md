@@ -260,8 +260,8 @@ This project is licensed under the MIT License.
 ## 👨‍💻 Author
 
 **Your Name**
-- GitHub: [@Dhaka08](https://github.com/Dhaka08)
-- Email: your.email@example.com
+- GitHub: [Dhaka08](https://github.com/Dhaka08)
+- Email: himanshudhaka05@gmail.com
 
 ## 🙏 Acknowledgments
 
