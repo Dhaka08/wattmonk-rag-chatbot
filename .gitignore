@@ -41,8 +41,5 @@ wheels/
 .DS_Store
 Thumbs.db
 
-# Data files (don't upload large PDFs to GitHub)
-data/*.pdf
-
 # Test files
 test_*.py
