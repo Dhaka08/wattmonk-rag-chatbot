@@ -2,8 +2,8 @@ streamlit==1.32.0
 pypdf2==3.0.1
 python-dotenv==1.0.0
 
-# FIXED Gemini deps
+# Gemini (FIXED)
 google-generativeai>=0.5.0
 
-# Fix Pillow issue
+# Pillow fix
 Pillow==10.2.0
