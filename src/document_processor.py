@@ -1,13 +1,11 @@
 import os
 from pypdf import PdfReader
 from typing import List, Dict
-import tiktoken
 
 class DocumentProcessor:
-    def __init__(self, chunk_size: int = 500, chunk_overlap: int = 50):
-        self.chunk_size = chunk_size
+    def __init__(self, chunk_size: int = 2000, chunk_overlap: int = 200):
+        self.chunk_size = chunk_size  # characters instead of tokens
         self.chunk_overlap = chunk_overlap
-        self.encoding = tiktoken.get_encoding("cl100k_base")
     
     def extract_text_from_pdf(self, pdf_path: str) -> List[Dict]:
         """Extract text from PDF file with page numbers"""
@@ -25,13 +23,13 @@ class DocumentProcessor:
         return pages_data
     
     def chunk_text(self, text: str, source: str, page_num: int) -> List[Dict]:
-        """Split text into chunks with metadata"""
-        tokens = self.encoding.encode(text)
+        """Split text into chunks by character count"""
         chunks = []
+        start = 0
         
-        for i in range(0, len(tokens), self.chunk_size - self.chunk_overlap):
-            chunk_tokens = tokens[i:i + self.chunk_size]
-            chunk_text = self.encoding.decode(chunk_tokens)
+        while start < len(text):
+            end = start + self.chunk_size
+            chunk_text = text[start:end]
             
             chunks.append({
                 "text": chunk_text,
@@ -39,6 +37,8 @@ class DocumentProcessor:
                 "page": page_num,
                 "chunk_id": len(chunks)
             })
+            
+            start = end - self.chunk_overlap
         
         return chunks
     
