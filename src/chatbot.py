@@ -1,11 +1,11 @@
-import google.generativeai as genai
+from google import genai
 from typing import List, Dict, Tuple
 import os
 
 class RAGChatbot:
     def __init__(self, api_key: str, vector_store):
-        genai.configure(api_key=api_key)
-        self.model = genai.GenerativeModel('gemini-2.5-flash')
+        self.client = genai.Client(api_key=api_key)
+        self.model = 'gemini-2.5-flash'
         self.vector_store = vector_store
         self.conversation_history = []
     
@@ -102,7 +102,10 @@ Be polite and helpful."""
         
         # Call Gemini API
         try:
-            response = self.model.generate_content(prompt)
+            response = self.client.models.generate_content(
+                model=self.model,
+                contents=prompt
+                )
             assistant_message = response.text
         except Exception as e:
             assistant_message = f"I apologize, but I encountered an error generating a response. Please try rephrasing your question or ask something else. Error: {str(e)}"
