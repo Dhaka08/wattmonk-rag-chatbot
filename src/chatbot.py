@@ -5,7 +5,7 @@ import os
 class RAGChatbot:
     def __init__(self, api_key: str, vector_store):
         genai.configure(api_key=api_key)
-        self.model = genai.GenerativeModel('gemini-pro')  # Use older model name
+        self.model = genai.GenerativeModel('gemini-2.5-flash')  # Use older model name
         self.vector_store = vector_store
         self.conversation_history = []
     
