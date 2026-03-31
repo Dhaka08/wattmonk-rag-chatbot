@@ -1,11 +1,11 @@
-from google import genai
+import google.generativeai as genai
 from typing import List, Dict, Tuple
 import os
 
 class RAGChatbot:
     def __init__(self, api_key: str, vector_store):
-        self.client = genai.Client(api_key=api_key)
-        self.model = 'gemini-2.5-flash'
+        genai.configure(api_key=api_key)
+        self.model = genai.GenerativeModel('gemini-pro')  # Use older model name
         self.vector_store = vector_store
         self.conversation_history = []
     
@@ -35,7 +35,7 @@ class RAGChatbot:
         # Default to general conversation
         return "general"
     
-    def get_relevant_context(self, query: str, intent: str) -> Tuple[str, str, List[int]]:
+    def get_relevant_context(self, query: str, intent: str) -> tuple:
         """Retrieve relevant context from vector store"""
         if intent == "general":
             return "", "Base Knowledge", []
@@ -102,10 +102,7 @@ Be polite and helpful."""
         
         # Call Gemini API
         try:
-            response = self.client.models.generate_content(
-                model=self.model,
-                contents=prompt
-                )
+            response = self.model.generate_content(prompt)
             assistant_message = response.text
         except Exception as e:
             assistant_message = f"I apologize, but I encountered an error generating a response. Please try rephrasing your question or ask something else. Error: {str(e)}"
