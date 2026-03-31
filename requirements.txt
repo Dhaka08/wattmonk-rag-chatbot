@@ -1,4 +1,4 @@
 streamlit==1.32.0
-pypdf2==3.0.1
+pypdf
 python-dotenv==1.0.0
 google-generativeai>=0.5.0
